@@ -1,6 +1,7 @@
 package objects;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
@@ -9,6 +10,7 @@ import Window.Animation;
 import Window.Game;
 import Window.Handler;
 import framework.GameObject;
+import framework.GameOver;
 import framework.Keyboard;
 import framework.ObjectId;
 import framework.Texture;
@@ -17,12 +19,18 @@ public class Player extends GameObject {
 	public int width = 32, height = 64;
 	private float gravity = 0.5f;
 	private final float MAX_SPEED = 10;
+	
 	private Handler handler;
 	Graphics g;
 	Texture tex = Game.getInstance();
 	
+	boolean walkLeft = false ,walkRight = true;
+	
 	private Animation playerWalk;
 	private Animation playerWalk_Left;
+	
+	
+	
 	public Player(float x, float y,Handler handler, ObjectId id) {
 		super(x, y, id);
 		// TODO Auto-generated constructor stub
@@ -38,7 +46,7 @@ public class Player extends GameObject {
 		// TODO Auto-generated method stub
 		x += velX;
 		y += velY;
-		
+	
 		if(falling || jumping) {
 			velY += gravity;
 			
@@ -67,40 +75,44 @@ public class Player extends GameObject {
 		for(int i=0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 			
-			if(tempObject.getId() == ObjectId.Enemy) {
+			
+			// PLayer with Enemy
+			if(tempObject.getId() == ObjectId.Enemy ) {
 				// width = 32, height = 64 
 			
 				if(getBoundsTop().intersects(tempObject.getBounds())) {
-					 
-				        g.setColor(Color.WHITE);
-				        g.drawString("Game Over!", 90, 70); 
+					y = (tempObject.getY() + (float)((height/2))) + 3;
+					velY=0;	
+
+					// NOT MOVE AFTER COLLISION
 					
-				}
-				if(getBounds().intersects(tempObject.getBounds())) {
-					
-				        g.setColor(Color.WHITE);
-				        g.drawString("Game Over!", 90 , 70 ); 
+					isGameOver = true;
+			        
+			           
 				}
 				
 				if(getBoundsRight().intersects(tempObject.getBounds())) {
-					
-				        g.setColor(Color.WHITE);
-				        g.drawString("Game Over!", 90, 70); 
-				}
-					
-					
-					
-				if(getBoundsLeft().intersects(tempObject.getBounds())) {
-					 
-				        g.setColor(Color.WHITE);
-				        g.drawString("Game Over!", 90 , 70 ); 
-				}
-					
-					
-					
-			}
 			
-			if(tempObject.getId() == ObjectId.Block) {
+					x = (tempObject.getX() - tempObject.getBounds().width) - 3;
+		 
+					// NOT MOVE AFTER COLLISION
+					isGameOver = true;
+					
+				}
+				
+				if(getBoundsLeft().intersects(tempObject.getBounds())) {
+					x = (tempObject.getX() + tempObject.getBounds().width) + 3;	
+        
+					// NOT MOVE AFTER COLLISION
+					isGameOver = true;
+				}
+					
+					
+		    }
+			
+			
+			// Player with Block
+			if(tempObject.getId() == ObjectId.Block ) {
 				// width = 32, height = 64 
 			
 				if(getBoundsTop().intersects(tempObject.getBounds())) {
@@ -129,18 +141,42 @@ public class Player extends GameObject {
 		
 	}
 }
-	
+
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 		
 		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		// ultima pozitie dupa mers left ii spre dreapta
-		if(velX > 0) 
+		
+		if(velX > 0) {
 			playerWalk.drawAnimation(g, (int)x, (int)y, 32, 64);
-		else if(velX < 0)
+			walkRight = true;
+			walkLeft = false;
+			
+		}
+			
+		else if(velX < 0) {
 			playerWalk_Left.drawAnimation(g, (int)x, (int)y, 32, 64);
-		else
-			g.drawImage(tex.player[0], (int)x, (int)y, 32, 64, null);
+			walkRight = false;
+			walkLeft = true;
+		}
+			
+		else {
+			if(walkRight == true && walkLeft == false )
+				g.drawImage(tex.player[0], (int)x, (int)y, 32, 64, null);
+			else
+				g.drawImage(tex.player_reverse[1], (int)x, (int)y, 32, 64, null);
+		}
+		
+		// draw GAME OVER
+		if(this.isGameOver == true) {
+			g.setFont(new Font("Arial Black", Font.BOLD, 50));
+			g.setColor(Color.RED);
+			g.drawString("GAME OVER", 270, 200);
+			
+		}
+		
+			
 		
 		
 	}

@@ -1,8 +1,11 @@
 package Window;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
 public class Window{
+
 	
 	public  Window(int w, int h, String title, Game game) {
 		game.setPreferredSize(new Dimension(w,h));

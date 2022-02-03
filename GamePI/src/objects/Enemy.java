@@ -20,12 +20,16 @@ public class Enemy extends GameObject {
 	private final float MAX_SPEED = 10;
 	private Handler handler;
 	
+	private Animation enemyWalk;
+	
 	Texture tex = Game.getInstance();
 	
 	public Enemy(float x, float y,Handler handler, ObjectId id) {
 		super(x, y, id);
 		// TODO Auto-generated constructor stub
 		this.handler = handler;
+		
+		this.enemyWalk = new Animation(4, tex.enemy[0],tex.enemy[1],tex.enemy[2],tex.enemy[3]);
 		
 	}
 
@@ -37,16 +41,18 @@ public class Enemy extends GameObject {
 //		playerWalk.runAnimation();
 //		else
 //		playerWalk_Left.runAnimation();
-			
+		enemyWalk.runAnimation();
 			
 	}
+
 	
+	// Colision for player to run into blocks
 	private void Collision(LinkedList<GameObject> object) {
 		
 		for(int i=0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 			
-			if(tempObject.getId() == ObjectId.Block) {
+			if(tempObject.getId() == ObjectId.Block ) {
 				// width = 32, height = 64 
 			
 				if(getBoundsTop().intersects(tempObject.getBounds())) {
@@ -72,14 +78,17 @@ public class Enemy extends GameObject {
 					
 					
 			}
+			
 		
 	}
 }
 	
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
-		g.setColor(Color.blue);
-		g.fillRect((int)x,(int)y, 32,32);
+//		g.setColor(Color.blue);
+//		g.fillRect((int)x,(int)y, 32,32);
+	
+		enemyWalk.drawAnimation(g, (int)x, (int)y, 32, 64);
 		
 	}
 

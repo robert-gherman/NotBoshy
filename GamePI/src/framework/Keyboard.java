@@ -17,13 +17,15 @@ public class Keyboard extends KeyAdapter{
 	}
 	
 	public void keyPressed(KeyEvent e) {
+	
 		int key = e.getKeyCode();
 		
 		for(int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 			
-			
-			if(tempObject.getId() == ObjectId.Player) {
+			// touched the enemy u will not be able to move anymore cuz of if below
+			if(tempObject.getisGameOver() == false) {
+				if(tempObject.getId() == ObjectId.Player) {
 				//  -> z
 				if(key == 39) {
 					tempObject.setVelX(4);
@@ -58,6 +60,10 @@ public class Keyboard extends KeyAdapter{
 				}
 			
 			}
+			}
+			
+			
+			
 	
 		}
 		

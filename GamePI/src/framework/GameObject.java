@@ -9,6 +9,8 @@ public abstract class GameObject {
 	protected boolean falling = true;
 	protected boolean jumping = false;
 	
+	protected boolean isGameOver = false;
+	
 	
 	public GameObject(float x, float y, ObjectId id) {
 		super();
@@ -77,6 +79,14 @@ public abstract class GameObject {
 
 	public void setId(ObjectId id) {
 		this.id = id;
+	}
+	
+	public void setisGameOver(boolean isGameOver) {
+		this.isGameOver = isGameOver;
+	}
+
+	public boolean getisGameOver() {
+		return isGameOver;
 	}
 
 	
