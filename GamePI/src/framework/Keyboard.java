@@ -23,8 +23,17 @@ public class Keyboard extends KeyAdapter{
 		for(int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 			
+			
+			if(key == KeyEvent.VK_ENTER && tempObject.getId() == ObjectId.Player) {
+					tempObject.setisGameOver(false);
+					tempObject.setX(47);
+					tempObject.setY(540);
+			}
 			// touched the enemy u will not be able to move anymore cuz of if below
 			if(tempObject.getisGameOver() == false) {
+				
+				
+				
 				if(tempObject.getId() == ObjectId.Player) {
 				//  -> z
 				if(key == 39) {
@@ -58,6 +67,7 @@ public class Keyboard extends KeyAdapter{
 					//System.out.println("IESIRE: " + contor );
 					
 				}
+				
 			
 			}
 			}

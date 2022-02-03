@@ -74,11 +74,17 @@ public class Texture {
 		player_reverse[9] = ps2.grabImage(15, 1, 24, 24);
 		player_reverse[10] = ps2.grabImage(14, 1, 24, 24);
 		
-		// 32 nu e bun probabil de reparat maine
-		enemy[0] = en.grabImage(1, 1, 22, 33);
-//		enemy[1] = en.grabImage(2, 1, 22, 33);
-//		enemy[2] = en.grabImage(3, 1, 22, 33);
-//		enemy[3] = en.grabImage(4, 1, 22, 33);
+		// 32 nu e bun 
+		enemy[0] = en.grabImage(1, 1, 32, 22);
+		enemy[1] = en.grabImage(2, 1, 32, 22);
+		enemy[2] = en.grabImage(3, 1, 32, 22);
+		enemy[3] = en.grabImage(4, 1, 32, 22);
+		
+		//
+		enemy_reverse[0] = en2.grabImage(1, 1, 31, 22);
+		enemy_reverse[1] = en2.grabImage(2, 1, 31, 22);
+		enemy_reverse[2] = en2.grabImage(3, 1, 31, 22);
+		enemy_reverse[3] = en2.grabImage(4, 1, 31, 22);
 		
 		
 	}

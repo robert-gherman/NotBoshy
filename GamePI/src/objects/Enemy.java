@@ -21,7 +21,9 @@ public class Enemy extends GameObject {
 	private Handler handler;
 	
 	private Animation enemyWalk;
+	private Animation enemyWalkLeft;
 	
+	boolean walkLeft = true ,walkRight = false;
 	Texture tex = Game.getInstance();
 	
 	public Enemy(float x, float y,Handler handler, ObjectId id) {
@@ -30,18 +32,46 @@ public class Enemy extends GameObject {
 		this.handler = handler;
 		
 		this.enemyWalk = new Animation(4, tex.enemy[0],tex.enemy[1],tex.enemy[2],tex.enemy[3]);
+		this.enemyWalkLeft = new Animation(4, tex.enemy_reverse[0],tex.enemy_reverse[1],tex.enemy_reverse[2],tex.enemy_reverse[3]);
 		
 	}
 
 	
 	public void tick(LinkedList<GameObject> object) { 
 		// TODO Auto-generated method stub
+		x += velX;
+		y += velY;
+	
+		if(falling || jumping) {
+			velY += gravity;
+			
+			if(velY > MAX_SPEED)
+				velY = MAX_SPEED;
+		}
+		Collision(object);
 
-//		if(velX > 0)
-//		playerWalk.runAnimation();
-//		else
-//		playerWalk_Left.runAnimation();
-		enemyWalk.runAnimation();
+		// box in the enemy to perma walk
+		 if (x > 375 && walkLeft == true){
+			 x = x - 1;
+			enemyWalkLeft.runAnimation();
+			if( x == 375)
+				walkLeft = false;
+			
+			
+			
+		}
+		 else if(walkLeft == false) {
+			 x = x + 1;
+			 enemyWalk.runAnimation();
+			
+			 walkRight = true;
+			 if( x == 485 )
+				 walkLeft = true;
+		 }
+
+			
+		
+		
 			
 	}
 
@@ -62,6 +92,7 @@ public class Enemy extends GameObject {
 				}
 				if(getBounds().intersects(tempObject.getBounds())) {
 					y = tempObject.getY() - height;
+					
 					velY=0;
 					falling = false;
 					jumping = false;
@@ -87,8 +118,15 @@ public class Enemy extends GameObject {
 		// TODO Auto-generated method stub
 //		g.setColor(Color.blue);
 //		g.fillRect((int)x,(int)y, 32,32);
-	
-		enemyWalk.drawAnimation(g, (int)x, (int)y, 32, 64);
+
+
+			// box in the enemy to perma walk
+			 if (x > 375 && walkLeft == true) {	 				 
+				 enemyWalkLeft.drawAnimation(g, (int)x, (int)y, 32, 64);
+			 }
+			 else if(walkLeft == false)
+					enemyWalk.drawAnimation(g, (int)x, (int)y, 32, 64);
+
 		
 	}
 

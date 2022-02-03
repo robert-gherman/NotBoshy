@@ -66,7 +66,9 @@ public class Player extends GameObject {
 		playerWalk.runAnimation();
 		else
 		playerWalk_Left.runAnimation();
-			
+		
+
+		
 			
 	}
 	
@@ -173,6 +175,9 @@ public class Player extends GameObject {
 			g.setFont(new Font("Arial Black", Font.BOLD, 50));
 			g.setColor(Color.RED);
 			g.drawString("GAME OVER", 270, 200);
+			g.setFont(new Font("Arial Black", Font.BOLD, 33));
+			g.setColor(Color.RED);
+			g.drawString("Press enter to restart the game!", 165, 300);
 			
 		}
 		
