@@ -26,8 +26,19 @@ public class Keyboard extends KeyAdapter{
 			
 			if(key == KeyEvent.VK_ENTER && tempObject.getId() == ObjectId.Player) {
 					tempObject.setisGameOver(false);
+					// start
 					tempObject.setX(47);
 					tempObject.setY(540);
+					
+//					tempObject.setX(380);
+//					tempObject.setY(200);
+//					tempObject.setX(260);
+//					tempObject.setY(120);
+					
+					//finish
+//					tempObject.setX(700);
+//					tempObject.setY(20);
+					tempObject.setHasIntersectTrap(false);
 			}
 			// touched the enemy u will not be able to move anymore cuz of if below
 			if(tempObject.getisGameOver() == false) {

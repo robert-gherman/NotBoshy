@@ -11,7 +11,17 @@ public abstract class GameObject {
 	
 	protected boolean isGameOver = false;
 	
+	protected boolean hasIntersectTrap = false;
 	
+
+	public boolean isHasIntersectTrap() {
+		return hasIntersectTrap;
+	}
+
+	public void setHasIntersectTrap(boolean hasIntersectTrap) {
+		this.hasIntersectTrap = hasIntersectTrap;
+	}
+
 	public GameObject(float x, float y, ObjectId id) {
 		super();
 		this.x = x;

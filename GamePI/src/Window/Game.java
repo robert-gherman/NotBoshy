@@ -15,6 +15,9 @@ import framework.Texture;
 import objects.Block;
 import objects.Enemy;
 import objects.Player;
+import objects.SpikesBottom;
+import objects.SpikesTop;
+import objects.TrapBlock;
 // double jump 
 public class Game extends Canvas implements Runnable{
 
@@ -166,6 +169,18 @@ public class Game extends Canvas implements Runnable{
 						handler.addObject(new Block(xx*32, yy*32, 3, ObjectId.Block));
 					if( red == 0 && green == 0 && blue == 255 ) 
 						handler.addObject(new Player(xx*32, yy*32,handler, ObjectId.Player));
+					if( red == 255 && green == 0 && blue == 0 ) {
+						handler.addObject(new TrapBlock(xx*32, yy*32, ObjectId.TrapBlock));
+					}
+					if(red == 255 && green == 0 && blue == 220)
+						handler.addObject(new SpikesBottom(xx*32, yy*32, 2, ObjectId.SpikesBottom));
+					if(red == 178 && green == 0 && blue == 255)
+						handler.addObject(new SpikesBottom(xx*32, yy*32, 1, ObjectId.SpikesBottom));
+					
+					if(red == 255 && green == 216 && blue == 0)
+						handler.addObject(new SpikesTop(xx*32, (yy*32), 2, ObjectId.SpikesTop));
+					if(red == 255 && green == 106 && blue == 0)
+						handler.addObject(new SpikesTop(xx*32, (yy*32)-200, 1, ObjectId.SpikesTop));
 						
 					
 						

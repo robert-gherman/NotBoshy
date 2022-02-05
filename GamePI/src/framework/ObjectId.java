@@ -5,5 +5,8 @@ public enum ObjectId {
 	
 	Player(),
 	Block(), 
-	Enemy();
+	Enemy(),
+	TrapBlock(),
+	SpikesBottom(),
+	SpikesTop();
 }

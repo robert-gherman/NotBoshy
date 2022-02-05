@@ -1,5 +1,6 @@
 package objects;
 
+import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -29,6 +30,10 @@ public class Player extends GameObject {
 	private Animation playerWalk;
 	private Animation playerWalk_Left;
 	
+	private int nrOfWins = 0;
+	boolean flagWins = true;
+	
+
 	
 	
 	public Player(float x, float y,Handler handler, ObjectId id) {
@@ -67,8 +72,17 @@ public class Player extends GameObject {
 		else
 		playerWalk_Left.runAnimation();
 		
+		// when finish go back to start
+		if( x == 832 && y == 96) {
+			x = 47;
+			y = 540;
+			
+			nrOfWins ++;	
+			
+			
+		}
+			
 
-		
 			
 	}
 	
@@ -76,6 +90,130 @@ public class Player extends GameObject {
 		
 		for(int i=0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
+			
+			// PLayer with SPIKE TOP
+			
+						if(tempObject.getId() == ObjectId.SpikesTop ) {
+							// width = 32, height = 64 
+						
+							
+							if(getBoundsTop().intersects(tempObject.getBounds())) {
+								y = (tempObject.getY() + (float)((height/2))) + 3;
+								velY=0;	
+
+								// NOT MOVE AFTER COLLISION
+								
+								isGameOver = true;
+								
+								
+						        
+						           
+							}
+							
+							if(getBoundsRight().intersects(tempObject.getBounds())) {
+						
+								x = (tempObject.getX() - tempObject.getBounds().width) - 3;
+					 
+								// NOT MOVE AFTER COLLISION
+								isGameOver = true;
+								
+							
+								
+							}
+							
+							if(getBoundsLeft().intersects(tempObject.getBounds())) {
+								x = (tempObject.getX() + tempObject.getBounds().width) + 3;	
+			        
+								// NOT MOVE AFTER COLLISION
+								isGameOver = true;
+								
+							
+							}
+								
+							}
+			
+			// Player with SPIKE BOTTOM
+			if(tempObject.getId() == ObjectId.SpikesBottom ) {
+				// width = 32, height = 64 
+			
+				
+				if(getBoundsTop().intersects(tempObject.getBounds())) {
+					y = (tempObject.getY() + (float)((height/2))) + 3;
+					velY=0;	
+
+					// NOT MOVE AFTER COLLISION
+					
+					isGameOver = true;
+					
+					
+			        
+			           
+				}
+				
+				if(getBoundsRight().intersects(tempObject.getBounds())) {
+			
+					x = (tempObject.getX() - tempObject.getBounds().width) - 3;
+		 
+					// NOT MOVE AFTER COLLISION
+					isGameOver = true;
+					
+				
+					
+				}
+				
+				if(getBoundsLeft().intersects(tempObject.getBounds())) {
+					x = (tempObject.getX() + tempObject.getBounds().width) + 3;	
+        
+					// NOT MOVE AFTER COLLISION
+					isGameOver = true;
+					
+				
+				}
+					
+				}
+			
+			// Player with TrapBlock
+			if(tempObject.getId() == ObjectId.TrapBlock) {
+				// width = 32, height = 64 
+			
+				if(getBoundsTop().intersects(tempObject.getBounds())) {
+					y = (tempObject.getY() + (float)((height/2))) + 3;
+					velY=0;	
+
+					// NOT MOVE AFTER COLLISION
+					
+					isGameOver = true;
+					
+					hasIntersectTrap = true;
+					
+			        
+			           
+				}
+				
+				if(getBoundsRight().intersects(tempObject.getBounds())) {
+			
+					x = (tempObject.getX() - tempObject.getBounds().width) - 3;
+		 
+					// NOT MOVE AFTER COLLISION
+					isGameOver = true;
+					
+					hasIntersectTrap = true;
+					
+					
+				}
+				
+				if(getBoundsLeft().intersects(tempObject.getBounds())) {
+					x = (tempObject.getX() + tempObject.getBounds().width) + 3;	
+        
+					// NOT MOVE AFTER COLLISION
+					isGameOver = true;
+					
+					hasIntersectTrap = true;
+				
+				}
+					
+					
+		    }
 			
 			
 			// PLayer with Enemy
@@ -89,6 +227,8 @@ public class Player extends GameObject {
 					// NOT MOVE AFTER COLLISION
 					
 					isGameOver = true;
+					
+					
 			        
 			           
 				}
@@ -100,6 +240,8 @@ public class Player extends GameObject {
 					// NOT MOVE AFTER COLLISION
 					isGameOver = true;
 					
+				
+					
 				}
 				
 				if(getBoundsLeft().intersects(tempObject.getBounds())) {
@@ -107,6 +249,8 @@ public class Player extends GameObject {
         
 					// NOT MOVE AFTER COLLISION
 					isGameOver = true;
+					
+				
 				}
 					
 					
@@ -117,9 +261,12 @@ public class Player extends GameObject {
 			if(tempObject.getId() == ObjectId.Block ) {
 				// width = 32, height = 64 
 			
+				
 				if(getBoundsTop().intersects(tempObject.getBounds())) {
 					y = tempObject.getY() + (float)((height/2));
 					velY=0;
+					
+					
 					
 				}
 				if(getBounds().intersects(tempObject.getBounds())) {
@@ -127,16 +274,25 @@ public class Player extends GameObject {
 					velY=0;
 					falling = false;
 					jumping = false;
+					
+					
 				}
 				else 
 					falling = true;
 				
-				if(getBoundsRight().intersects(tempObject.getBounds())) 
+				if(getBoundsRight().intersects(tempObject.getBounds())) {
 					x = tempObject.getX() - tempObject.getBounds().width;
 					
 					
-				if(getBoundsLeft().intersects(tempObject.getBounds())) 
+				}
+					
+					
+					
+				if(getBoundsLeft().intersects(tempObject.getBounds())) {
 					x = tempObject.getX() + tempObject.getBounds().width;
+					
+				}
+					
 					
 					
 			}
@@ -181,7 +337,25 @@ public class Player extends GameObject {
 			
 		}
 		
-			
+		// wins counter
+		String myWins;
+		String myNameChars;
+		myNameChars = String.format("Wins: %s", nrOfWins);
+		myWins = String.valueOf(myNameChars);
+		g.setFont(new Font("Arial Black", Font.BOLD, 23));
+		g.setColor(Color.RED);
+		g.drawString(myWins, 31, 60);
+		
+		// finish block
+		g.setColor(Color.green);
+		g.fillRect(832 , 100, 32,64);
+		
+		// color TrapBlock when is gameOver
+		TrapBlock tempObject = new TrapBlock(MAX_SPEED, MAX_SPEED, id);
+		if( hasIntersectTrap == true) 
+		tempObject.paint(g);
+		else
+			tempObject.paint2(g);
 		
 		
 	}

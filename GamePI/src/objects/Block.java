@@ -39,16 +39,19 @@ public class Block extends GameObject {
 		// dirt block == 0
 		if(type == 0) {
 			g.drawImage(tex.block[0], (int)x, (int)y, null);
+			
 		}
 		// grass block == 1
 		if(type == 1) {
 			g.drawImage(tex.block[1], (int)x, (int)y, null);
+			
 		}
 		
 		// invisible block == 2
 		if(type == 2) {
 			g.setColor(Color.white);
 			g.fillRect((int)x,(int)y, 32,32);
+			
 		}
 		
 	}
@@ -56,6 +59,16 @@ public class Block extends GameObject {
 
 	public Rectangle getBounds() {
 		return new Rectangle((int)x, (int) y,32,32);
+	}
+
+
+	public int getType() {
+		return type;
+	}
+
+
+	public void setType(int type) {
+		this.type = type;
 	}
 	
 

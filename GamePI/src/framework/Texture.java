@@ -6,20 +6,22 @@ import Window.BufferedImageLoader;
 
 public class Texture {
 	
-	SpriteSheet bs, ps, ps2, en, en2;
+	SpriteSheet bs, ps, ps2, en, en2, spik, spik2,spik3;
 	private BufferedImage block_sheet = null;
 	private BufferedImage player_sheet = null;
 	private BufferedImage player_sheet2 = null;
 	private BufferedImage enemy_sheet = null;
 	private BufferedImage enemy_sheet2 = null;
-	
+	private BufferedImage spike_sheet = null;
+	private BufferedImage spike_sheet2 = null;
+	private BufferedImage spike_sheet3 = null;
 	
 	public BufferedImage[] block = new BufferedImage[2];
 	public BufferedImage[] player = new BufferedImage[11];
 	public BufferedImage[] player_reverse = new BufferedImage[11];
 	public BufferedImage[] enemy = new BufferedImage[4];
 	public BufferedImage[] enemy_reverse = new BufferedImage[4];
-	
+	public BufferedImage[] spike = new BufferedImage[3];
 	
 	
 	
@@ -32,6 +34,9 @@ public class Texture {
 			player_sheet2 = loader.loadImage("player_sheet_flipped.png");
 			enemy_sheet = loader.loadImage("BeetleMoveRightQ.png");
 			enemy_sheet2 = loader.loadImage("BeetleMoveLeftQ.png");
+			spike_sheet = loader.loadImage("tile_rock.png");
+			spike_sheet2 = loader.loadImage("spikes.png");
+			spike_sheet3 = loader.loadImage("spikes_down.png");
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -43,6 +48,9 @@ public class Texture {
 		ps2 = new SpriteSheet(player_sheet2);
 		en = new SpriteSheet(enemy_sheet);
 		en2 = new SpriteSheet(enemy_sheet2);
+		spik = new SpriteSheet(spike_sheet);
+		spik2 = new SpriteSheet(spike_sheet2);
+		spik3 = new SpriteSheet(spike_sheet3);
 		getTexture();
 		
 	}
@@ -86,6 +94,8 @@ public class Texture {
 		enemy_reverse[2] = en2.grabImage(3, 1, 31, 22);
 		enemy_reverse[3] = en2.grabImage(4, 1, 31, 22);
 		
-		
+		spike[0] = spik.grabImage(1, 1, 64, 64);
+		spike[1] = spik2.grabImage(1, 1, 70, 70);
+		spike[2] = spik3.grabImage(1, 1, 70, 70);
 	}
 }
